@@ -1,0 +1,139 @@
+crear carpeta backend
+se abre en consola
+npm init
+decir que backend/ es la carpeta
+se genera automatico package.json
+se pone la propiedad "type": "module" en el package.json
+(no se le da click a debug)
+en consola: npm i [librerias]
+librerias:
+- bcrypt
+- connect-multiparty
+- cors
+- dotenv
+- express
+- jsonwebtoken
+- moment
+Esto actualiza el package.json e instala la carpeta node_modules
+Para que el server se auto recarge se instala nodemon
+en consola: npm i nodemon -D
+Se crea archivo .gitignore que incluye: /backend/node_modules
+Se crea .env para las variables de entorno y contiene:
+PORT=3001
+SK_JWT=[clave]
+DB_CONNECTION=[url]
+donde
+url = mongodb://localhost:27017/[nombre_base_datos]
+la url se consulta con el servidor de base de datos mongo:
+en consola: mongo
+clave = SBFL21
+la clave puede ser cualquiera.
+Sirve como llave de seguridad del webtoken.
+se crea index.js
+se crea /db/db.js y tiene el codigo:
+    import montoose from "mongoose";
+    constdbConnection = () => {
+        try {
+            mongoose.connect(process.env.DB_CONNECTION,{
+                useNewUrlParser: true;
+                useUnifiedTopology: true
+            }
+            console.log("asdf)
+        }
+        catch (e) {
+            console.log("error" + e)
+        }
+    }
+
+se crea index.js que tiene el codigo:
+    import express from "express";
+    import cors from "cors";
+    import dotenv from "dotenv";
+    import db from "./db/db.js";
+    dotenv.config();
+    const app = express();
+    app.use(express.json());
+    app.use(cors);
+    app.listen(process.env.PORT, () => {
+        console.log("running on port: " + process.env.PORT)
+    });
+    db.dbConnection();
+
+    se arranca el servidor de base de datos desde consola:
+        sudo systemctl start mongodb
+
+    se arranca el servidor con la consola desde /backend/ mediante: 
+        npm start
+    debería mostrarse el mensaje del puerto de conexión.
+    
+
+la base de datos tendra las colecciones:
+
+user{
+    "id": ObjectId (automatico de mongo),
+    "name": String,
+    "email": String,
+    "password": String,
+    "roleId": ObjectId, (para relacion con role)
+    "dbStatus": boolean,
+    "registerDate": Date
+},
+
+role {
+    "id": ObjectId (automatico de mongo),
+    "name": String,
+    "description": String,
+    "dbStatus": boolean,
+    "registerDate": Date
+,}
+
+board {
+    "name": String,
+    "description": String,
+    "taskStatus": String,
+    "imageUrl": String,
+    "registerDate": Date,
+    "userId": ObjectId,(para relacion con user)
+}
+
+
+Se crea la carpeta /models/ para almacenar las colecciones,
+por lo que se crean adentro los archivos:
+- role.js
+- user.js
+- board.js
+
+Se crea primero la coleccion independiente, o "datos parametrizados".
+
+el archivo role.js contiene:
+[]
+
+Se crea la carpeta /controllers/ y adentro:
+- roles.js
+- user.js
+- board.js
+
+Se crea la carpeta /routes/ y adentro:
+- roles.js
+- user.js
+- board.js
+
+Para el archivo /controllers/role.js se crea el código:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
