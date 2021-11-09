@@ -6,9 +6,7 @@ import mongoose from "mongoose";
 const dbConnection = async () => {
   try {
     // process guarda variables ocultas ".variable"
-    
-    
-    await mongoose.connect(process.env.DB_CONNECTION, {
+      await mongoose.connect(process.env.DB_CONNECTION, {
       
       // useNewUrlParser: convierte la URL para que no se muestre en consola.
       useNewUrlParser: true, 
